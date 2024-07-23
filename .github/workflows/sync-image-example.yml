@@ -1,17 +1,23 @@
-name: Sync Image to Aliyun  Example
-
+# 工作流名称
+name: Sync-Images-to-DockerHub-Example
+# 工作流运行时显示名称
+run-name: ${{ github.actor }} is Sync Images to DockerHub.
+# 怎样触发工作流
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
+# 工作流程任务（通常含有一个或多个步骤）
+jobs:
+  syncimages:
+    runs-on: ubuntu-latest
     steps:
-    - name: Git pull
+    - name: Checkout Repos
       uses: actions/checkout@v3
       
     - name: Set up Docker Buildx
@@ -20,12 +26,13 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v2.2.0
       with:
-        registry: registry.cn-hangzhou.aliyuncs.com
-        username: 764011866@qq.com
-        password: wylc123456
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASS }}
         logout: false
-        
+    
+    # 使用shell命令批量同步所需的镜像到dockerHub中
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
-         skopeo copy docker://docker.io/viktorstrate/photoview:2 docker://registry.cn-hangzhou.aliyuncs.com/viktorstrate/photoview:2
-      # 使用 skopeo 工具将镜像同步到阿里云个人仓库中，使用时请自行源和目标修改仓库名称和镜像名称
+        #!/usr/bin/env bash
+        skopeo copy --all docker://registry.k8s.io/viktorstrate/photoview:2 docker://registry.cn-hangzhou.aliyuncs.com/wylc12138/photoview:2
+        
