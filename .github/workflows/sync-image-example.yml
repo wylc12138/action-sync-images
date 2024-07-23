@@ -35,5 +35,5 @@ jobs:
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
         #!/usr/bin/env bash
-        skopeo copy --all docker://registry.k8s.io/viktorstrate/photoview:2 docker://registry.cn-hangzhou.aliyuncs.com/wylc12138/photoview:2
+        skopeo copy docker://docker.io/viktorstrate/photoview:2 docker://registry.cn-hangzhou.aliyuncs.com/wylc12138/photoview:2
         
