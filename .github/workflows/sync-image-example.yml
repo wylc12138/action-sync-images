@@ -38,4 +38,5 @@ jobs:
         skopeo copy docker://docker.io/viktorstrate/photoview:2 docker://registry.cn-hangzhou.aliyuncs.com/wylc12138/photoview:2
         skopeo copy docker://docker.io/viktorstrate/photoview:master docker://registry.cn-hangzhou.aliyuncs.com/wylc12138/photoview:master
         skopeo copy docker://docker.io/mariadb:lts docker://registry.cn-hangzhou.aliyuncs.com/wylc12138/mariadb:lts
+        skopeo copy docker://docker.io/jenkins/jenkins:latest docker://registry.cn-hangzhou.aliyuncs.com/wylc12138/jenkins:latest
         
